@@ -17,7 +17,7 @@ export default defineConfig({
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
     viewport: null,
-    launchOptions: { args: ['--start-maximized'] },
+    launchOptions: { args: ['--start-maximized', '--force-device-scale-factor=1.0'] },
     actionTimeout: 10000,
     navigationTimeout: 15000,
   },
