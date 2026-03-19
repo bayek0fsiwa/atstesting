@@ -12,9 +12,14 @@ export default defineConfig({
   reporter: [
     ['html', { outputFolder: 'reports' }]
   ],
+  expect: { timeout: 10000, },
   use: {
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
+    viewport: null,
+    launchOptions: { args: ['--start-maximized'] },
+    actionTimeout: 10000,
+    navigationTimeout: 15000,
   },
 
   projects: [
@@ -33,6 +38,8 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/authState.json',
+        viewport: null,
+        deviceScaleFactor: undefined,
       },
       dependencies: ['setup'],
     },
@@ -42,6 +49,8 @@ export default defineConfig({
       use: {
         ...devices['Desktop Firefox'],
         storageState: 'playwright/.auth/authState.json',
+        viewport: null,
+        deviceScaleFactor: undefined,
       },
       dependencies: ['setup'],
     },
@@ -50,6 +59,8 @@ export default defineConfig({
       testDir: './tests/functional',
       use: {
         ...devices['Desktop Chrome'],
+        viewport: null,
+        deviceScaleFactor: undefined,
       },
     },
   ],

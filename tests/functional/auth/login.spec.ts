@@ -21,6 +21,8 @@ test.describe('Authentication Flow Tests', () => {
             process.env.TEST_USER!,
             process.env.TEST_PASSWORD!
         );
+        const scoreNewBtn = page.getByRole("button", { name: "Score a new resume →" });
+        await expect(scoreNewBtn).toBeVisible();
         await expect(page).toHaveURL(process.env.BASE_URL as string);
     });
 });

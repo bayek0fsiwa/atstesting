@@ -1,0 +1,42 @@
+services:
+  playwright:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: playwright-tests
+    environment:
+      - BASE_URL=http://app:3000
+      # - API_BASE_URL=http://app:3000/api
+      - TEST_USER=${TEST_USER}
+      - TEST_PASSWORD=${TEST_PASSWORD}
+      # - API_TOKEN=${API_TOKEN}
+      - CI=true
+    volumes:
+      - ../test-results:/app/test-results
+      - ../reports:/app/reports
+      - ../playwright/.auth:/app/playwright/.auth
+    networks:
+      - test-network
+    depends_on:
+      - app
+    command: pnpm test
+
+  # Optional: Add your application service here
+  app:
+    image: node:22-alpine
+    container_name: test-app
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    networks:
+      - test-network
+    # Uncomment and configure based on your app
+    # volumes:
+    #   - ../path/to/app:/app
+    # command: npm run dev
+
+networks:
+  test-network:
+    driver: bridge
