@@ -58,3 +58,6 @@ logs
 
 # Reports
 reports
+
+# Test data
+test-data/*
