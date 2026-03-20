@@ -5,10 +5,10 @@ dotenv.config();
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: false,
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1,
-  workers: process.env.CI ? 4 : 2,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 2 : 2,
   reporter: [
     ['html', { outputFolder: 'reports' }]
   ],
@@ -16,7 +16,7 @@ export default defineConfig({
   use: {
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    // video: 'retain-on-failure',
     trace: 'on-first-retry',
     viewport: null,
     launchOptions: { args: ['--start-maximized', '--force-device-scale-factor=1.0'] },
